@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Products - SOI Gold and Silver</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #fff8dc 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(212, 175, 55, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #8b4513;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #8b4513;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-menu a:hover {
+            background: rgba(139, 69, 19, 0.2);
+            color: #654321;
+        }
+
+        .live-prices {
+            background: linear-gradient(45deg, #d4af37, #f4e4bc);
+            color: #333;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 80px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .price-ticker {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .price-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .metal-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .change {
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .positive { color: #28a745; }
+        .negative { color: #dc3545; }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #8b4513;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #d4af37, #f4e4bc);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 4rem;
+            color: #8b4513;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-weight {
+            color: #654321;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .spot-price {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .btn-add-to-cart {
+            background: linear-gradient(45deg, #d4af37, #f4e4bc);
+            color: #8b4513;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .footer {
+            background: rgba(139, 69, 19, 0.9);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .last-updated {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .price-ticker {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-coins"></i> SOI Gold & Silver
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="gold.html"><i class="fas fa-circle" style="color: #d4af37;"></i> Gold</a></li>
+                    <li><a href="silver.html"><i class="fas fa-circle" style="color: #c0c0c0;"></i> Silver</a></li>
+                    <li><a href="copper.html"><i class="fas fa-circle" style="color: #b87333;"></i> Copper</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="live-prices">
+        <div class="price-ticker">
+            <div class="price-item">
+                <div class="metal-name">
+                    <i class="fas fa-circle" style="color: #d4af37;"></i> Gold
+                </div>
+                <div class="price" id="gold-price">$2,721.50</div>
+                <div class="change positive" id="gold-change">+12.30 (+0.45%)</div>
+            </div>
+            <div class="price-item">
+                <div class="metal-name">
+                    <i class="fas fa-circle" style="color: #c0c0c0;"></i> Silver
+                </div>
+                <div class="price" id="silver-price">$32.85</div>
+                <div class="change negative" id="silver-change">-0.15 (-0.45%)</div>
+            </div>
+            <div class="price-item">
+                <div class="metal-name">
+                    <i class="fas fa-circle" style="color: #b87333;"></i> Copper
+                </div>
+                <div class="price" id="copper-price">$3.85</div>
+                <div class="change positive" id="copper-change">+0.08 (+2.12%)</div>
+            </div>
+        </div>
+        <div class="last-updated">Last updated: <span id="last-update">Just now</span></div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <h1><i class="fas fa-coins" style="color: #d4af37;"></i> Gold Products</h1>
+            <p>Premium gold bullion for investment and collection</p>
+        </div>
+
+        <section class="category-section">
+            <h2 class="category-title">
+                <i class="fas fa-circle"></i> Gold Rounds
+            </h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="product-name">1 gram Gold Round</div>
+                    <div class="product-weight">1 Gram</div>
+                    <div class="product-price">$97.50</div>
+                    <div class="spot-price">Spot + $15.00</div>
+                    <div class="product-description">
+                        The smallest gold round available, perfect for new investors. High-quality private mint production with classic design.
+                    </div>
+                    <button class="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="product-name">1 oz Gold Round</div>
+                    <div class="product-weight">1 Troy Ounce (31.1g)</div>
+                    <div class="product-price">$2,796.50</div>
+                    <div class="spot-price">Spot + $75.00</div>
+                    <div class="product-description">
+                        Full ounce gold round from private mints. Classic designs with guaranteed weight and purity. Maximum size available.
+                    </div>
+                    <button class="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">
+                <i class="fas fa-barcode"></i> Gold Bars
+            </h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                    <div class="product-name">1 gram Gold Bar - PAMP Suisse</div>
+                    <div class="product-weight">1 Gram</div>
+                    <div class="product-price">$95.00</div>
+                    <div class="spot-price">Spot + $12.50</div>
+                    <div class="product-description">
+                        Premium Swiss gold bar from PAMP Suisse featuring the iconic Lady Fortuna design. Sealed with assay certificate.
+                    </div>
+                    <button class="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                    <div class="product-name">1 oz Gold Bar - Multiple Mints</div>
+                    <div class="product-weight">1 Troy Ounce (31.1g)</div>
+                    <div class="product-price">$2,791.50</div>
+                    <div class="spot-price">Spot + $70.00</div>
+                    <div class="product-description">
+                        Full ounce gold bar from various reputable mints. Maximum size available with lowest premium per gram.
+                    </div>
+                    <button class="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer" id="contact">
+        <p>&copy; 2024 SOI Gold and Silver - Sands of Iowa. All rights reserved.</p>
+        <p>Contact us: info@soigoldandsilver.com</p>
+    </footer>
+
+    <script>
+        // Live price update simulation
+        function updatePrices() {
+            const metals = ['gold', 'silver', 'copper'];
+            const basePrices = { gold: 2721.50, silver: 32.85, copper: 3.85 };
+            
+            metals.forEach(metal => {
+                const variation = (Math.random() - 0.5) * 20;
+                const newPrice = basePrices[metal] + variation;
+                const change = (Math.random() - 0.5) * 5;
+                const changePercent = (change / basePrices[metal] * 100).toFixed(2);
+                
+                document.getElementById(`${metal}-price`).textContent = `$${newPrice.toFixed(2)}`;
+                
+                const changeElement = document.getElementById(`${metal}-change`);
+                const changeClass = change >= 0 ? 'positive' : 'negative';
+                const changeSymbol = change >= 0 ? '+' : '';
+                
+                changeElement.className = `change ${changeClass}`;
+                changeElement.textContent = `${changeSymbol}${change.toFixed(2)} (${changeSymbol}${changePercent}%)`;
+            });
+            
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
+        }
+
+        // Update prices every 30 seconds
+        setInterval(updatePrices, 30000);
+        
+        // Initial update
+        updatePrices();
+
+        // Add to cart functionality
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+                this.style.background = '#28a745';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+                    this.style.background = 'linear-gradient(45deg, #d4af37, #f4e4bc)';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
